@@ -1,6 +1,6 @@
 ## 类模型
 
-![mybatis-1](.\images\mybatis-1.png)
+![mybatis-1](./images/mybatis-1.png)
 
 ## SqlSession 会话
 
