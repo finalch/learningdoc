@@ -1,4 +1,4 @@
-## 类模型
+## Mybatis主要类模型
 
 ![mybatis-1](./images/mybatis-1.png)
 
@@ -172,3 +172,8 @@ private Statement prepareStatement(StatementHandler handler, Log statementLog) t
 - 全局缓存开关cacheEnabled不是true，默认是true
 - statement配置了useCache不是true，默认是true
 - 未通过cache或者cache-ref标签配置缓存空间
+
+## 主键生成
+
+## #和$的区别
+
