@@ -175,5 +175,13 @@ private Statement prepareStatement(StatementHandler handler, Log statementLog) t
 
 ## 主键生成
 
-## #和$的区别
+## #{}和${}的区别
+
+处理#{}是通过字符串替换，将#{}部分替换为参数；
+
+处理${}是通过预编译生成SQL，使用？替换掉${}部分，然后通过PreparedStatement的set方法进行参数赋值，这样可以有效防止SQL注入。
+
+## DAO原理
+
+## spring+mybatis集成的原理
 
