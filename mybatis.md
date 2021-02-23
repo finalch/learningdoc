@@ -23,6 +23,8 @@ public enum ExecutorType {
 
 ### SIMPLE
 
+1. 核心逻辑
+
 ```java
  @Override
   public <E> List<E> doQuery(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) throws SQLException {
@@ -49,11 +51,30 @@ private Statement prepareStatement(StatementHandler handler, Log statementLog) t
   }
 ```
 
+2. 测试代码
 
+   ```java
+     @Test
+     public void testSimpleExecutor() throws SQLException {
+       Executor executor = new SimpleExecutor(configuration, transaction);
+       MappedStatement mappedStatement = configuration.getMappedStatement("com.finalch.mybatis.dao.UserMapper.getUserById");
+       RowBounds rowBounds = new RowBounds();
+       List<User> query = executor.query(mappedStatement, 1, rowBounds, null);
+       List<User> query1 = executor.query(mappedStatement, 2, rowBounds, null);
+       System.out.println(query.get(0).getName());
+       System.out.println(query1.get(0).getName());
+     }
+   ```
+
+   ![simpleExecutorTestResult-1](.\images\simpleExecutorTestResult-1.png)
+
+   一共执行了两次预编译、参数设置
 
 ### REUSE
 
 ReuseExecutor类中有一个HashMap，以sql为key，statement为value，缓存了预编译之后生成的statement。
+
+1. 核心逻辑
 
 ```java
 @Override
@@ -86,7 +107,24 @@ private Statement prepareStatement(StatementHandler handler, Log statementLog) t
   }
 ```
 
+2. 测试代码
 
+   ```java
+     @Test
+     public void testReuseExecutor() throws SQLException {
+       Executor executor = new ReuseExecutor(configuration, transaction);
+       MappedStatement mappedStatement = configuration.getMappedStatement("com.finalch.mybatis.dao.UserMapper.getUserById");
+       RowBounds rowBounds = new RowBounds();
+       List<User> query = executor.query(mappedStatement, 1, rowBounds, null);
+       List<User> query1 = executor.query(mappedStatement, 2, rowBounds, null);
+       System.out.println(query.get(0).getName());
+       System.out.println(query1.get(0).getName());
+     }
+   ```
+
+   ![reuseExecutorTestResult-1](.\images\reuseExecutorTestResult-1.png)
+
+   一共执行了1次预编译，2次参数设置。
 
 ### BATCH
 
