@@ -193,7 +193,17 @@ private Statement prepareStatement(StatementHandler handler, Log statementLog) t
 
 - 查询之前，执行了rollback操作；
 
-- 配置了localCacheScope为statement。
+- 在mybatis配置文件中配置了localCacheScope为statement。
+
+  ```xml
+  <settings>
+      <setting name="logImpl" value="LOG4J"/>
+      <!-- 一级缓存作用域-->
+      <setting name="localCacheScope" value="STATEMENT"/>
+   </settings>
+  ```
+
+  
 
 ### 二级缓存
 
@@ -222,4 +232,12 @@ private Statement prepareStatement(StatementHandler handler, Log statementLog) t
 ## DAO原理
 
 ## spring+mybatis集成的原理
+
+mybatis处理$是进行字符串替换，处理#时是对sql进行预编译，将#部分替换为?，然后通过PreparedStatement的set方法进行参数赋值，可以防止SQL注入。
+
+## 插件
+
+## 分页
+
+## 延迟加载
 
