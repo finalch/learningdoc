@@ -230,7 +230,7 @@ private Statement prepareStatement(StatementHandler handler, Log statementLog) t
 处理${}是通过预编译生成SQL，使用？替换掉${}部分，然后通过PreparedStatement的set方法进行参数赋值，这样可以有效防止SQL注入。
 
 ## DAO原理
-
+mybatis DAO原理主要涉及到动态代理和工厂模式。我们在开发时，只需要写mapper接口，mybatis在加载配置时，会在mapperRegistry中为每一个接口生成一个代理工厂类，当通过sqlSession.getMapper方法获取接口时，将会在mapperRegistry中获取到接口的代理工厂类，并创建一个代理类。该代理类拦截了接口中的所有方法，在invoke方法中调用mapperMethod类中的execute方法，在execute方法中调用sqlSession中的增删改查方法，在sqlSession中将会调用executor相应的增删改查方法。
 
 ## spring+mybatis集成的原理
 
