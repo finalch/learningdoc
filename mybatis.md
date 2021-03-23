@@ -238,6 +238,6 @@ mybatis DAO原理主要涉及到动态代理和工厂模式。我们在开发时
 Mybatis插件实现主要利用了JDK动态代理和责任链模式,并且只支持Executor、ParameterHandler、ResultSetHandler、StatementHandler四种接口.实现一个插件，需要实现interceptor接口，并且通过Intercepts、Signature注解配置拦截规则，在mybatis配置文件中通过<plugin>标签配置自定义的插件,mybatis在解析配置文件时，便会将自定义的插件加载到interceptorChain中。当创建Executor、ParameterHandler、ResultSetHandler、StatementHandler四种接口实现类的实例时，都会执行interceptorChain.pluginAll方法对实例进行拦截，生成相应的代理对象。
 ![plugin](./images/plugin.png)
 ## 分页
-
+Mybatis通过rowbounds对查询结果集进行逻辑分页的。
 ## 延迟加载
 
