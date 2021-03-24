@@ -1,4 +1,9 @@
-## 基本数据类型
+## 数据类型
+对象系统：Object
+5种基本数据类型：String、List、Hash、Set、ZSet
+基数统计：HyperLogLog
+## 底层数据结构
+sds、adlist/ziplist/quicklist/zskiplist、intset、dict、hyperloglog
 ## SDS 动态字符串
 ### 结构
 ![sds-内存结构](./images/Redis-sds-1.png)
@@ -56,3 +61,8 @@ struct __attribute__ ((__packed__)) sdshdr64 {
   比如sds扩容的策略时，如果需要的内存大小小于1M，则会2倍扩容，否则会多扩容1M，采用这样的预分配策略可以减少很多的内存分配操作,如果内存空间够用，在多次append字符串时可以直接在内存空间中存放数据。
 - 惰性释放
   sdsclear()函数用于置空sds字符串，该函数只是将头部len变量设置为0，将buf第一字节设置为\0，而不会立即回收内存空间, 并通过相关api将内存管理交给上层决定。
+
+## adlist
+普通的双向链表
+### 结构
+![adlist](./images/adlist-1.png)
